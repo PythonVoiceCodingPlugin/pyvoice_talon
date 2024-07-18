@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import platform
 import subprocess
@@ -8,6 +9,8 @@ from talon import Context, Module, actions, app, speech_system
 
 from user.pyvoice_talon.rpc import add_method
 from user.pyvoice_talon.sublime_client import send_sublime
+
+logger = logging.getLogger(__name__)
 
 mod = Module()
 
@@ -35,9 +38,7 @@ ctx.lists["user.pyvoice_expression"] = {"nothing nothing nothing": "{}"}
 
 @add_method()
 def enhance_spoken(list_name, data):
-    print("Enhancing: ", list_name, len(data), data[0])
-    # print("getpass.getuser(): ", getpass.getuser())
-    # app.notify(body=str(len(data)) + str(data[0]))  # json.dumps(data))
+    logger.info("Enhancing: %s with %s items", list_name, len(data))
     ctx.lists[f"user.pyvoice_{list_name}"] = {x["spoken"]: json.dumps(x) for x in data}
     return True
 
@@ -86,7 +87,6 @@ def pyvoice_add_import(data: str) -> None:
 @vscode_ctx.action("user.pyvoice_add_import")
 def pyvoice_add_import(data: str) -> None:
     """Add import to file"""
-    print("in here... vscode version")
     actions.user.vscode_with_plugin(
         "pyvoice.lsp_execute",
         "add_import",
