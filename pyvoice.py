@@ -24,13 +24,13 @@ app: vscode
 
 
 mod.list("pyvoice_importable")
-ctx.lists["user.pyvoice_importable"] = {"last": "last"}
+ctx.lists["user.pyvoice_importable"] = {"nothing nothing nothing": "{}"}
 
 mod.list("pyvoice_subsymbol")
-ctx.lists["user.pyvoice_subsymbol"] = {"last": "last"}
+ctx.lists["user.pyvoice_subsymbol"] = {"nothing nothing nothing": "{}"}
 
 mod.list("pyvoice_expression")
-ctx.lists["user.pyvoice_expression"] = {"last": "last"}
+ctx.lists["user.pyvoice_expression"] = {"nothing nothing nothing": "{}"}
 
 
 @add_method()
@@ -53,19 +53,21 @@ def insert_pyvoice_expression(data: str) -> None:
     Insert LSP Expression with Parentheses
     if needed via keypresses
     """
-    actions.insert(json.loads(data)["value"])
-    print(data)
-    if data[-1] == ")":
+    expression = json.loads(data)["value"]
+    actions.insert(expression)
+    if expression[-1] == ")":
         actions.key("left")
 
 
 @mod.action
 def insert_pyvoice_qualified(data: str) -> None:
     """Print importable as qualified name"""
-    d = json.loads(data)
-    # t = ".".join(*(d["module"] + d["name"]))
-    t = ".".join([d["module"], d["name"]])
-    actions.insert(f'"{t}"')
+    import_item = json.loads(data)
+    if "name" in import_item:
+        text = f"{import_item['module']}.{import_item['name']}"
+    else:
+        text = import_item["module"]
+    actions.insert(f'"{text}"')
 
 
 @mod.action

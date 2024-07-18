@@ -7,7 +7,7 @@
 
 
 ^qualified <user.pyvoice_importable_all>$: 
-	user.insert_pyvoice_qualified(pyvoice_importable)
+	user.insert_pyvoice_qualified(pyvoice_importable_all)
 
 
 ^from {user.pyvoice_importable}$: 
