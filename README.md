@@ -99,8 +99,7 @@ actions.user.vscode_with_plugin
 
 This project is licensed under the GPL v3 License - excluding the following bits
 
-- `deps.zip` which packages for ease of installation the [`jsonrpc`](https://github.com/pavlov99/json-rpc/tree/master/jsonrpc) library  and is  licensed under  MIT as well as bits of the python standard library that were missing on my talon installation, licensed separately
-
+- `deps.zip` which packages for ease of installation the [`jsonrpc`](https://github.com/pavlov99/json-rpc/tree/master/jsonrpc) library  and is  licensed under  MIT
 
 
 
